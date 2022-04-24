@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TechPhantom</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="../static/mystyle.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <div class="search-container">
+          <form action="/{{ticker}}">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+      <br>
+      
+    <h1 class="head">{{com_name}}</h1>
+   <br>
+   <br>
+   <div class ="range">
+    <form action="/">
+        <label for="from">From:</label>
+        <input type="date" id="start_date" name="start_date" value="2022-01-01">
+        <label for="from">To:</label>
+        <input type="date" id="end_date" name="end_date" value="2022-04-23">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+      <br>
+      <br>
+      
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+    <script>
+   
+
+      window.addEventListener('load', setup);
+
+      async function setup() {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const stockPrice = await getData();
+        const myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: stockPrice.years,
+            datasets: [
+              {
+                label: 'Actual-Price',
+                data: stockPrice.actualprices,
+                fill: false,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderWidth: 1
+              },
+              {
+                label: 'Predicted-Price',
+                data: stockPrice.predictedprices,
+                fill: false,
+                borderColor: 'rgba(36, 155, 229, 0.8)',
+                backgroundColor: 'rgba(36, 155, 229, 0.3)',
+                borderWidth: 1
+              }
+            ]
+          },
+     
+          options: {}
+        });
+      }
+
+      async function getData() {
+        // const response = await fetch('testdata.csv');
+        const response = await fetch('../static/{{ticker}}.csv');
+        const data = await response.text();
+        const years = [];
+        const actualprices = [];
+        var mean = 0;
+        const predictedprices = [];
+        const meanpredicted = [];
+        const rows = data.split('\n').slice(1);
+      
+        rows.forEach(row => {
+          const cols = row.split(',');
+          years.push(cols[0]);
+          actualprices.push(parseFloat(cols[2]));
+         
+          predictedprices.push(parseFloat(cols[1]*2000+mean));
+         
+        });
+        let sum = 0;
+
+for (let i = 0; i < actualprices.length; i++) {
+    sum += actualprices[i];
+};
+        rows.forEach(row => {
+          meanpredicted.push(parseFloat(cols[1]*2000+mean));
+        })
+        
+        return { years, actualprices ,predictedprices };
+      }
+    </script>
+    <!-- <script src="script.js"></script>
+
+<script src="js/custom.js"></script> -->
+  </body>
+</html>
