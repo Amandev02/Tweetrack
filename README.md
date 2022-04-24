@@ -6,7 +6,7 @@
   <a href="https://youtu.be/dQw4w9WgXcQ">https://youtu.be/dQw4w9WgXcQ</a>
   
 ## Presentation Link:
-  <a href="https://cutt.ly/H365PPT"> PPT link here </a>
+  <a href="https://cutt.ly/kGaLnmu"> PPT link here </a>
   
 ## Introduction:
 <!--   Predicting how the stock market will perform is one of the most difficult things to do.  -->
