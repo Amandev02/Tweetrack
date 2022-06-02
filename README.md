@@ -2,8 +2,6 @@
 
 <a href="https://hack36.com"> <img src="https://cutt.ly/BuiltAtHack36" height=24px> </a>
   
-## Demo Video Link:
-  <a href="https://youtu.be/dQw4w9WgXcQ">https://youtu.be/dQw4w9WgXcQ</a>
   
 ## Presentation Link:
   <a href="https://cutt.ly/kGaLnmu"> PPT link here </a>
